@@ -51,7 +51,7 @@ fail validation.
 The (sample)[/professorplumb/ValidAJAX/master/sample/] directory contains an [Express.js](http://expressjs.com/) demo
 application which will display and validate a simple form using manually generated server-side validators.
 
-![Demo app screenshot](/professorplumb/ValidAJAX/master/sample/public/images/screenshot.png)
+![Demo app screenshot](sample/public/images/screenshot.png)
 
 If you want to make any changes to the source code while playing with the demo app you will need to symlink
 `src/javascript/validajax.js` to `sample/public/javascripts/validajax.js` for your changes to take effect.
