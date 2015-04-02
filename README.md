@@ -48,7 +48,7 @@ fail validation.
 
 ## Demo
 
-The (sample)[/professorplumb/ValidAJAX/master/sample/] directory contains an [Express.js](http://expressjs.com/) demo
+The [sample](sample/) directory contains an [Express.js](http://expressjs.com/) demo
 application which will display and validate a simple form using manually generated server-side validators.
 
 ![Demo app screenshot](sample/public/images/screenshot.png)
