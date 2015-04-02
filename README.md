@@ -123,7 +123,7 @@ validations.  By default:
  - removes `validClass` and `invalidClass` from the input
  - removes the `<span class="validajax">` appended by validation
 
-#### `onValidationSuccess($input)`
+#### `onValidationSuccess($input, message)`
 
 Called when validation succeeds for an input.  Use this to style the valid input any way you choose.  By default:
  
@@ -131,7 +131,7 @@ Called when validation succeeds for an input.  Use this to style the valid input
  - appends a `<span class="validajax">` with the validation message (if any) to the input (or last in the group if a
    checkbox or radio)
 
-#### `onValidationFailure($input)`
+#### `onValidationFailure($input, message)`
 
 Called when validation fails for an input.  Use this to style the error input any way you choose.  By default:
  
