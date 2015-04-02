@@ -8,6 +8,7 @@
     debugOptions: false,
     formSelector: 'form[validate]:not([validate="false"])',
     inputSelector: 'input[type="text"], input[type="radio"], input[type="checkbox"], textarea, select',
+    inputFilter: ':not([validate="false"])',
     validationURLPrefix: '/ajax/validation',
     validationInProgressClass: 'validating',
     validClass: 'valid',
@@ -39,13 +40,16 @@
     var getAllInputElements, getInputValue, selectFields, showResult, validate, validateOnSubmit;
     selectFields = function($form, refinement) {
       var sel;
+      if (refinement == null) {
+        refinement = '';
+      }
       return $form.find(((function() {
         var i, len, ref, results;
         ref = options.inputSelector.split(', ');
         results = [];
         for (i = 0, len = ref.length; i < len; i++) {
           sel = ref[i];
-          results.push(sel + refinement);
+          results.push(sel + options.inputFilter + refinement);
         }
         return results;
       })()).join(', '));
@@ -126,7 +130,7 @@
         fn = function(form) {
           var $form;
           $form = $(form);
-          $form.find(options.inputSelector).each(function() {
+          selectFields($form).each(function() {
             var $this;
             $this = $(this);
             return $this.on('blur change', validate.bind(null, $this));

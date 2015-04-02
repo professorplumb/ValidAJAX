@@ -12,8 +12,6 @@ ValidAJAX requires [jQuery](//jquery.org) 1.10 or higher.
 
 ## Installation
 
-**TODO**: Grunt, bower, etc.
-
 1. Download or copy (validajax.js)[/professorplumb/ValidAJAX/src/javascript/validajax.js] onto your server.
 1. Include it in a `<script>` tag in the `<head>` of the page(s) containing forms you want to validate, lower on the 
    page than your jQuery `<script>` tag.
@@ -74,6 +72,11 @@ jQuery selector for the forms for which ValidAJAX will be enabled.  Defaults to 
 
 jQuery selector for the inputs which will be validated within a form.  Defaults to 
 `input[type="text"], input[type="radio"], input[type="checkbox"], textarea, select`
+
+#### `inputFilter`
+
+jQuery sub-selector which will be appended to each individual selector in `inputSelector`.  You can use this to turn
+off validation for individual inputs.  Defaults to `:not(validate="false")`
 
 #### `validationURLPrefix`
 
@@ -159,15 +162,21 @@ attribute?  (After enabling `debugOptions`) Does `$(ValidAJAX.options.formSelect
 1. Because that's correct HTTP semantics since we're not changing anything on the server.
 1. So you can implement caching on the endpoints for faster performance.
 
+### Isn't that insecure?
+
+Yes!  If you don't validate over HTTPS, anyone can see your validation queries.  This would happen regardless of the
+ HTTP method, though.  **Don't validate password inputs!**
+
 ### What if the validation of one input depends on another?
 
 ValidAJAX doesn't do that ... yet!
 
 ### What is planned for the future?
 
- - Turn on/off validation on a per-input basis
+ - Provide installer for grunt, bower, etc. 
  - Custom events for listeners to attach to (`beforeValidation`, etc.)
  - Validate multiple inputs together, or the whole form at once
+ - Encryption of GET params
 
 ## Authors
 

@@ -4,6 +4,7 @@ defaults =
   debugOptions: false
   formSelector: 'form[validate]:not([validate="false"])'
   inputSelector: 'input[type="text"], input[type="radio"], input[type="checkbox"], textarea, select'
+  inputFilter: ':not([validate="false"])'
   validationURLPrefix: '/ajax/validation'
   validationInProgressClass: 'validating'
   validClass: 'valid'
@@ -36,7 +37,8 @@ builtIns =
 window.ValidAJAX = (($) ->
   # Private functions
   selectFields = ($form, refinement) ->
-    $form.find (sel + refinement for sel in options.inputSelector.split(', ')).join ', '
+    refinement ?= ''
+    $form.find (sel + options.inputFilter + refinement for sel in options.inputSelector.split(', ')).join ', '
 
   showResult = ($input, resp) ->
     options.removeValidationResidue $input
@@ -93,7 +95,7 @@ window.ValidAJAX = (($) ->
     for form in forms
       do (form) ->
         $form = $(form)
-        $form.find(options.inputSelector).each ->
+        selectFields($form).each ->
           $this = $(this)
           $this.on 'blur change', validate.bind(null, $this)
         $form.on 'submit', validateOnSubmit.bind(null, $form)
