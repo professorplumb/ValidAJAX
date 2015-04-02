@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1 ValidAJAX demonstration
+  form(action='/done' method='POST' validate=true data-validajax-namespace='demoform')
+    div.mask
+    div.row
+      label Name
+      input(type='text', name='name')
+    div.row
+      label State
+      select(name='state')
+        option(value='') --
+        each val in ['CA', 'OR', 'HI', 'TX']
+          option(value=val)= val
+    div.row
+      label Status
+      each option in ['Married', 'Single', 'Both']
+        label(for="status-#{option.toLowerCase()}") #{option}
+        input(id="status-#{option.toLowerCase()}" type='radio' name='status' value=option.toLowerCase())
+        span &nbsp;
+    div.row
+      label Interests
+      each option in ['Animals', 'Architecture', 'Art', 'Arguments']
+        label(for="interests-#{option.toLowerCase()}") #{option}
+        input(id="status-#{option.toLowerCase()}" type='checkbox' name='interests' value=option.toLowerCase())
+        span &nbsp;
+    div.row
+      label Description
+      textarea(name='description')
+    div.row
+      label
+      button(type='submit') Submit

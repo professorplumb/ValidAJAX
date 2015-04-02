@@ -1,0 +1,58 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+div.row {
+  margin-bottom: 10px;
+}
+
+div.row label:first-child {
+  display: inline-block;
+  min-width: 100px;
+  font-weight: bold;
+}
+
+form {
+  position: relative;
+}
+
+form .mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+form.validating .mask {
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 10;
+}
+
+input:not(:focus).error, select:not(:focus).error {
+  background-color: red;
+}
+
+input.valid, select.valid {
+  background-color: green;
+}
+
+span.validajax {
+  display: block;
+  margin-left: 100px;
+  font-size: 10px;
+}
+
+.error + span.validajax {
+  color: red;
+}
+
+.valid + span.validajax {
+  color: green;
+}

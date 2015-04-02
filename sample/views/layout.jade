@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/static/stylesheets/style.css')
+    script(type='text/javascript', src='//code.jquery.com/jquery-1.11.2.min.js')
+    script(type='text/javascript', src='/static/javascripts/validajax.js')
+  body
+    block content
+    script.
+      ValidAJAX.init({
+        debugOptions: true,
+        validationURLPrefix: '/api/forms'
+      });
