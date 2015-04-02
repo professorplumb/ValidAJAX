@@ -168,3 +168,7 @@ ValidAJAX doesn't do that ... yet!
  - Turn on/off validation on a per-input basis
  - Custom events for listeners to attach to (`beforeValidation`, etc.)
  - Validate multiple inputs together, or the whole form at once
+
+## Authors
+
+ - [Eric Plumb](https://github.com/professorplumb/)
