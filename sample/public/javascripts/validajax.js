@@ -26,7 +26,7 @@
       return $input.attr('name').replace(this.urlComponentRegex, '');
     },
     removeValidationResidue: function($input) {
-      return $input.removeData('validajax-validate-applied').removeClass([options.validClass, options.invalidClass].join(' ')).siblings('.validajax').remove();
+      return $input.removeData('validajax-validation-in-progress').removeClass([options.validClass, options.invalidClass].join(' ')).siblings('.validajax').remove();
     },
     onValidationSuccess: function($input, resp) {
       return $input.last().addClass(options.validClass).after(resp.message ? $('<span class="validajax">' + resp.message + '</span>') : '');
@@ -56,6 +56,7 @@
     };
     showResult = function($input, resp) {
       options.removeValidationResidue($input);
+      $input.data('validajax-validation-applied', true);
       if (resp.success) {
         return options.onValidationSuccess($input, resp);
       } else {
@@ -89,12 +90,14 @@
       }
       return $input.val();
     };
-    validate = function($input) {
+    validate = function($input, event) {
       $input = getAllInputElements($input);
-      if ($input.data('validajax-validate-applied')) {
+      if ($input.data('validajax-validation-in-progress')) {
+        return;
+      } else if ($input.data('validajax-validation-applied') && event.type === 'blur') {
         return;
       }
-      $input.data('validajax-validate-applied', true).trigger('beforeInputValidation.validajax');
+      $input.data('validajax-validation-in-progress', true).data('validajax-validation-applied', false).trigger('beforeInputValidation.validajax');
       return $.ajax({
         url: [options.validationURLPrefix, options.getURLNamespace($input), options.getURLEndpoint($input)].join('/'),
         method: 'get',

@@ -19,7 +19,7 @@ builtIns =
     $input.attr('name').replace(this.urlComponentRegex, '')
   removeValidationResidue: ($input) ->
     $input
-      .removeData 'validajax-validate-applied'
+      .removeData 'validajax-validation-in-progress'
       .removeClass [options.validClass, options.invalidClass].join(' ')
       .siblings('.validajax')
       .remove()
@@ -42,6 +42,7 @@ window.ValidAJAX = (($) ->
 
   showResult = ($input, resp) ->
     options.removeValidationResidue $input
+    $input.data 'validajax-validation-applied', true
     if resp.success
       options.onValidationSuccess $input, resp
     else
@@ -63,12 +64,17 @@ window.ValidAJAX = (($) ->
 
     return $input.val()
 
-  validate = ($input) ->
+  validate = ($input, event) ->
     $input = getAllInputElements $input
-    if $input.data 'validajax-validate-applied'
+    if $input.data 'validajax-validation-in-progress'
+      # Validate only on one instance of any given checkbox or radio
+      return
+    else if $input.data('validajax-validation-applied') and event.type == 'blur'
+      # Prevent validation on blur of an input already validated on change
       return
     $input
-      .data 'validajax-validate-applied', true
+      .data 'validajax-validation-in-progress', true
+      .data 'validajax-validation-applied', false
       .trigger 'beforeInputValidation.validajax'
     $.ajax
       url: [options.validationURLPrefix, options.getURLNamespace($input), options.getURLEndpoint($input)].join '/'
