@@ -99,14 +99,14 @@ Also on the `options` object passed to `init()`, these callbacks allow you to cu
  
 Should return the "namespace" for this input's (and likely for the whole form's) validation URL, appended to 
 `validationURLPrefix`.  By default returns the first attribute found of `data-validajax-namespace`, `name`, and `id` on
-the input's form.
+the input's form, sanitized of metacharacters.
 
 Consists of the bolded part of this sample endpoint URL: /ajax/validation/**myform**/first_name
 
 #### `getURLEndpoint($input)`
 
 Should return the endpoint for this input's validation URL, appended to `validationURLPrefix` and the result of
-calling `getURLNamespace()` for this input.  By default returns the input's `name` attribute lowercased.
+calling `getURLNamespace()` for this input.  By default returns the input's `name` attribute sanitized of metacharacters.
 
 Consists of the bolded part of this sample endpoint URL: /ajax/validation/myform/**first_name**
 
