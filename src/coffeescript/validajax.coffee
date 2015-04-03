@@ -6,7 +6,6 @@ defaults =
   inputSelector: 'input[type="text"], input[type="radio"], input[type="checkbox"], textarea, select'
   inputFilter: ':not([validate="false"])'
   validationURLPrefix: '/ajax/validation'
-  validationInProgressClass: 'validating'
   validClass: 'valid'
   invalidClass: 'error'
 
@@ -67,21 +66,25 @@ window.ValidAJAX = (($) ->
     $input = getAllInputElements $input
     if $input.data 'validajax-validate-applied'
       return
-    $input.data 'validajax-validate-applied', true
+    $input
+      .data 'validajax-validate-applied', true
+      .trigger 'beforeInputValidation.validajax'
     $.ajax
       url: [options.validationURLPrefix, options.getURLNamespace($input), options.getURLEndpoint($input)].join '/'
       method: 'get'
       data:
         val: getInputValue($input)
-      success: (resp) -> showResult($input, resp)
+      success: (resp) ->
+        showResult($input, resp)
+        $input.trigger 'afterInputValidation.validajax', [resp]
 
   validateOnSubmit = ($form, event) ->
     event.preventDefault()
-    $form.addClass options.validationInProgressClass
+    $form.trigger 'beforeSubmitValidation.validajax'
     $.when.apply($, selectFields($form, ':not(.' + options.validClass + ')').map -> validate $(this))
       .then ->
-        $form.removeClass options.validationInProgressClass
         $errors = selectFields $form, '.' + options.invalidClass
+        $form.trigger 'afterSubmitValidation.validajax', [$errors.length == 0]
         if $errors.length > 0
           $errors.first().focus()
         else
@@ -95,11 +98,12 @@ window.ValidAJAX = (($) ->
     for form in forms
       do (form) ->
         $form = $(form)
+        $form.trigger 'beforeFormInitialization.validajax'
         selectFields($form).each ->
           $this = $(this)
           $this.on 'blur change', validate.bind(null, $this)
         $form.on 'submit', validateOnSubmit.bind(null, $form)
-        $form
+        $form.trigger 'afterFormInitialization.validajax'
 
     if options.debugOptions
       window.ValidAJAX.options = options

@@ -85,11 +85,6 @@ Relative URL prefix for the AJAX endpoints used to validate the form, **without 
 
 Consists of the bolded part of this sample endpoint URL: **/ajax/validation**/myform/first_name
 
-#### `validationInProgressClass`
-
-Added to the form while submit validation is being performed.  You can use this to style the form while it is being
-validated.  Defaults to `validating`
-
 #### `validClass`
 
 Added to inputs whose validation succeeds.  Defaults to `valid`
@@ -141,6 +136,45 @@ Called when validation fails for an input.  Use this to style the error input an
  - adds `invalidClass` to the input
  - appends a `<span class="validajax">` with the validation message (if any) to the input (or last in the group if a
    checkbox or radio)
+   
+### Events
+
+ValidAJAX sends custom events you can listen to in order to customize its behavior even more.  For example, the sample
+ application uses `beforeFormInitialization` and `afterFormInitialization` to add the `validating` class to the form,
+ which allows us to mask it off via CSS during validation.
+
+#### `beforeFormInitialization.validajax`
+
+Sent before each form is initialized during `init()`. Bound to the form object. No additional parameters.
+
+#### `afterFormInitialization.validajax`
+
+Sent after each form is initialized.  Bound to the form object.  No additional parameters.
+
+#### `beforeInputValidation.validajax`
+
+Sent before each input is validated.  Bound to the input object.  No additional parameters.
+
+#### `afterInputValidation.validajax`
+
+Sent after each input is validated.  Bound to the input object.  Sends the response from the validation endpoint as a
+custom parameter.  Example:
+
+```javascript
+$('[name="first_name"]').on('afterInputValidation.validajax', function (event, response) {
+  if (response.success) console.log("Congratulations!  Your first name is valid!");
+  else console.log("Condolences:", response.message)
+});
+```
+
+#### `beforeSubmitValidation.validajax`
+
+Sent before an entire form is validated on submit.  Bound to the form object.  No additional parameters.
+
+#### `afterSubmitValidation.validajax`
+
+Sent after the form's submit validation is finished.  Bound to the form object.  Sends one additional boolean parameter
+which represents whether the form validated successfully or not.
 
 ## FAQ
 
@@ -174,7 +208,6 @@ ValidAJAX doesn't do that ... yet!
 ### What is planned for the future?
 
  - Provide installer for grunt, bower, etc. 
- - Custom events for listeners to attach to (`beforeValidation`, etc.)
  - Validate multiple inputs together, or the whole form at once
  - Encryption of GET params
 

@@ -10,7 +10,6 @@
     inputSelector: 'input[type="text"], input[type="radio"], input[type="checkbox"], textarea, select',
     inputFilter: ':not([validate="false"])',
     validationURLPrefix: '/ajax/validation',
-    validationInProgressClass: 'validating',
     validClass: 'valid',
     invalidClass: 'error'
   };
@@ -94,7 +93,7 @@
       if ($input.data('validajax-validate-applied')) {
         return;
       }
-      $input.data('validajax-validate-applied', true);
+      $input.data('validajax-validate-applied', true).trigger('beforeInputValidation.validajax');
       return $.ajax({
         url: [options.validationURLPrefix, options.getURLNamespace($input), options.getURLEndpoint($input)].join('/'),
         method: 'get',
@@ -102,19 +101,20 @@
           val: getInputValue($input)
         },
         success: function(resp) {
-          return showResult($input, resp);
+          showResult($input, resp);
+          return $input.trigger('afterInputValidation.validajax', [resp]);
         }
       });
     };
     validateOnSubmit = function($form, event) {
       event.preventDefault();
-      $form.addClass(options.validationInProgressClass);
+      $form.trigger('beforeSubmitValidation.validajax');
       return $.when.apply($, selectFields($form, ':not(.' + options.validClass + ')').map(function() {
         return validate($(this));
       })).then(function() {
         var $errors;
-        $form.removeClass(options.validationInProgressClass);
         $errors = selectFields($form, '.' + options.invalidClass);
+        $form.trigger('afterSubmitValidation.validajax', [$errors.length === 0]);
         if ($errors.length > 0) {
           return $errors.first().focus();
         } else {
@@ -130,13 +130,14 @@
         fn = function(form) {
           var $form;
           $form = $(form);
+          $form.trigger('beforeFormInitialization.validajax');
           selectFields($form).each(function() {
             var $this;
             $this = $(this);
             return $this.on('blur change', validate.bind(null, $this));
           });
           $form.on('submit', validateOnSubmit.bind(null, $form));
-          return $form;
+          return $form.trigger('afterFormInitialization.validajax');
         };
         for (i = 0, len = forms.length; i < len; i++) {
           form = forms[i];

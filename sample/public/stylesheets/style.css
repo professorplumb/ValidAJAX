@@ -31,7 +31,7 @@ form .mask {
 }
 
 form.validating .mask {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(200, 200, 200, 0.7);
   z-index: 10;
 }
 

@@ -8,6 +8,12 @@ html
   body
     block content
     script.
+      $('form').on('beforeSubmitValidation.validajax', function () {
+        $(this).addClass('validating');
+      }).on('afterSubmitValidation.validajax', function () {
+        $(this).removeClass('validating');
+      });
+
       ValidAJAX.init({
         debugOptions: true,
         validationURLPrefix: '/api/forms'
