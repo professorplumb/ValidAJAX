@@ -10,12 +10,13 @@ defaults =
   invalidClass: 'error'
 
 builtIns =
+  urlComponentRegex: /[^\w\d\._-]/g
   getURLNamespace: ($input) ->
     $form = $input.parents('form')
     namespace = $form.attr('data-validajax-namespace') || $form.attr('name') || $form.attr('id')
-    namespace.toLowerCase()
+    namespace.replace(this.urlComponentRegex, '')
   getURLEndpoint: ($input) ->
-    $input.attr('name')
+    $input.attr('name').replace(this.urlComponentRegex, '')
   removeValidationResidue: ($input) ->
     $input
       .removeData 'validajax-validate-applied'

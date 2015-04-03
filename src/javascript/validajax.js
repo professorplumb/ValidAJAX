@@ -15,14 +15,15 @@
   };
 
   builtIns = {
+    urlComponentRegex: /[^\w\d\._-]/g,
     getURLNamespace: function($input) {
       var $form, namespace;
       $form = $input.parents('form');
       namespace = $form.attr('data-validajax-namespace') || $form.attr('name') || $form.attr('id');
-      return namespace.toLowerCase();
+      return namespace.replace(this.urlComponentRegex, '');
     },
     getURLEndpoint: function($input) {
-      return $input.attr('name');
+      return $input.attr('name').replace(this.urlComponentRegex, '');
     },
     removeValidationResidue: function($input) {
       return $input.removeData('validajax-validate-applied').removeClass([options.validClass, options.invalidClass].join(' ')).siblings('.validajax').remove();

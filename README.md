@@ -15,11 +15,11 @@ ValidAJAX requires [jQuery](//jquery.org) 1.10 or higher.
 1. Download or copy [validajax.js](src/javascript/validajax.js) onto your server.
 1. Include it in a `<script>` tag in the `<head>` of the page(s) containing forms you want to validate, lower on the 
    page than your jQuery `<script>` tag.
-1. I mean, it's not rocket science.  The harder part is....
+1. I mean, it's not rocket surgery.  For you masochists we have Bower support planned.
 
 ## Initialization
 
-ValidAJAX will create a `window.ValidAJAX` object with a single function `init`. Call this function on `document.load`
+ValidAJAX creates a `window.ValidAJAX` object with a single function `init`. Call this function on `document.load`
 or whenever your forms have been rendered.  E.g.:
 
 ```javascript
@@ -28,8 +28,6 @@ or whenever your forms have been rendered.  E.g.:
     validationURLPrefix: '/api/forms'
   });
 ```
-
-Well, that's not really helpful, I suppose; better to describe....
 
 ## Usage
 
@@ -108,7 +106,7 @@ Consists of the bolded part of this sample endpoint URL: /ajax/validation/**myfo
 #### `getURLEndpoint($input)`
 
 Should return the endpoint for this input's validation URL, appended to `validationURLPrefix` and the result of
-calling `getURLNamespace()` for this input.  By default returns the input's `name` attribute.
+calling `getURLNamespace()` for this input.  By default returns the input's `name` attribute lowercased.
 
 Consists of the bolded part of this sample endpoint URL: /ajax/validation/myform/**first_name**
 
@@ -140,7 +138,7 @@ Called when validation fails for an input.  Use this to style the error input an
 ### Events
 
 ValidAJAX sends custom events you can listen to in order to customize its behavior even more.  For example, the sample
- application uses `beforeFormInitialization` and `afterFormInitialization` to add the `validating` class to the form,
+ application uses `beforeSubmitValidation` and `afterSubmitValidation` to add the `validating` class to the form,
  which allows us to mask it off via CSS during validation.
 
 #### `beforeFormInitialization.validajax`
@@ -207,7 +205,7 @@ ValidAJAX doesn't do that ... yet!
 
 ### What is planned for the future?
 
- - Provide installer for grunt, bower, etc. 
+ - Provide support for grunt, bower, etc. 
  - Validate multiple inputs together, or the whole form at once
  - Encryption of GET params
 
