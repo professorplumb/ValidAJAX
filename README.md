@@ -12,7 +12,7 @@ ValidAJAX requires [jQuery](//jquery.org) 1.10 or higher.
 
 ## Installation
 
-1. Download or copy (validajax.js)[/professorplumb/ValidAJAX/src/javascript/validajax.js] onto your server.
+1. Download or copy [validajax.js](src/javascript/validajax.js) onto your server.
 1. Include it in a `<script>` tag in the `<head>` of the page(s) containing forms you want to validate, lower on the 
    page than your jQuery `<script>` tag.
 1. I mean, it's not rocket science.  The harder part is....
