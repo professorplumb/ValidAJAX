@@ -3,7 +3,7 @@ options = {}
 defaults =
   debugOptions: false
   formSelector: 'form[validate]:not([validate="false"])'
-  inputSelector: 'input[type="text"], input[type="radio"], input[type="checkbox"], textarea, select'
+  inputSelector: 'input[type="text"], input[type="email"], input[type="number"], input[type="radio"], input[type="checkbox"], textarea, select'
   inputFilter: ':not([validate="false"])'
   validationURLPrefix: '/ajax/validation'
   validClass: 'valid'

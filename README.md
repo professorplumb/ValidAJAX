@@ -69,7 +69,7 @@ jQuery selector for the forms for which ValidAJAX will be enabled.  Defaults to 
 #### `inputSelector`
 
 jQuery selector for the inputs which will be validated within a form.  Defaults to 
-`input[type="text"], input[type="radio"], input[type="checkbox"], textarea, select`
+`input[type="text"], input[type="email"], input[type="number"], input[type="radio"], input[type="checkbox"], textarea, select`
 
 #### `inputFilter`
 
