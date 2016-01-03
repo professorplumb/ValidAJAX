@@ -1,0 +1,32 @@
+{
+  "name": "ValidAJAX",
+  "description": "Realtime validation of HTML forms using your already-present backend logic.",
+  "main": [
+    "src/javascript/validajax.js",
+    "src/javascript/validajax.js.map",
+    "src/coffeescript/validajax.coffee"
+  ],
+  "dependencies": {
+    "jquery": ">=1.10.0"
+  },
+  "ignore": [
+    "sample",
+    "test",
+    "tests"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "validation",
+    "forms"
+  ],
+  "authors": [
+    "Eric Plumb"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/professorplumb/validajax.git"
+  }
+}

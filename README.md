@@ -15,7 +15,7 @@ ValidAJAX requires [jQuery](//jquery.org) 1.10 or higher.
 1. Download or copy [validajax.js](src/javascript/validajax.js) onto your server.
 1. Include it in a `<script>` tag in the `<head>` of the page(s) containing forms you want to validate, lower on the 
    page than your jQuery `<script>` tag.
-1. I mean, it's not rocket surgery.  For you masochists we have Bower support planned.
+1. I mean, it's not rocket surgery.  For you masochists we have Bower support as well.
 
 ## Initialization
 
@@ -181,7 +181,7 @@ which represents whether the form validated successfully or not.
 We probably wouldn't use ValidAJAX either if we had to do that.  We have created (or want to create) plugins for some
 popular frameworks which will generate these for you automatically:
 
- - Django: django_validajax (forthcoming)
+ - Django: [Django-ValidAJAX](https://github.com/professorplumb/django-validajax)
  - Rails: rails_validajax (forthcoming)
 
 ### Why isn't my form validating?
@@ -205,8 +205,9 @@ ValidAJAX doesn't do that ... yet!
 
 ### What is planned for the future?
 
- - Provide support for grunt, bower, etc. 
+ - Provide support for grunt, require, etc.
  - Validate multiple inputs together, or the whole form at once
+ - Error handling on validation callback
  - Encryption of GET params
 
 ## Authors
