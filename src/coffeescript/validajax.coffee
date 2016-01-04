@@ -2,6 +2,7 @@ options = {}
 
 defaults =
   debugOptions: false
+  suppressErrors: false
   formSelector: 'form[validate]:not([validate="false"])'
   inputSelector: 'input[type="text"], input[type="email"], input[type="number"], input[type="radio"], input[type="checkbox"], textarea, select'
   inputFilter: ':not([validate="false"])'
@@ -84,6 +85,15 @@ window.ValidAJAX = (($) ->
       success: (resp) ->
         showResult($input, resp)
         $input.trigger 'afterInputValidation.validajax', [resp]
+      error: (xhr) ->
+        if options.suppressErrors
+          return
+        serverResponse = JSON.parse(xhr.responseText).message
+        if (window.console)
+          window.console.error "ValidAJAX configuration error:", serverResponse
+        else
+          window.alert "ValidAJAX configuration error:\n" + serverResponse
+
 
   validateOnSubmit = ($form, event) ->
     event.preventDefault()

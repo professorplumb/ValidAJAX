@@ -62,6 +62,11 @@ ValidAJAX provides the following options which can be passed to `init`:
 
 If `true`, attaches the `options` object to `window.ValidAJAX` for debugging purposes.  Defaults to `false`
 
+#### `suppressErrors`
+
+If `true`, server errors (e.g. misconfigured form namespaces) will not be logged to the console and/or alerted.
+Defaults to `false` (i.e., errors will be logged to the console on most modern browsers)
+
 #### `formSelector`
 
 jQuery selector for the forms for which ValidAJAX will be enabled.  Defaults to `form[validate]:not([validate="false"])` 
